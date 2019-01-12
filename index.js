@@ -149,19 +149,23 @@ app.post('/msggetall',(req,res)=>{
 
 function msgGetAll(id,res){
 
-mongoClient.connect(function(err, client){
+mongoClient.connect(async function (err, client) {
     const db = client.db("printsotre");
-    var answer="0";
+    var answer = "0";
     var allProductsArray = db.collection("items").find().toArray();
+        try {
 
-    db.collection("items").find().toArray(function(err, documents) {
+
+    await db.collection("items").find().toArray(function (err, documents) {
         console.log(documents);
 
         res.end(JSON.stringify(documents));
         client.close();
 
     });
-
+} finally {
+        if (db) db.close();
+    }
 
 });
 }
