@@ -135,6 +135,8 @@ app.post('/msggetall',(req,res)=>{
         });
          } finally {
              if (db) db.close();
+             console.log("db.close()");
+
          }
     });
 
@@ -165,7 +167,9 @@ mongoClient.connect(async function (err, client) {
     });
 } finally {
         if (db) db.close();
-    }
+        console.log("db.close()");
+
+        }
 
 });
 }
