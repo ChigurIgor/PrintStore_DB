@@ -150,7 +150,7 @@ app.post('/msggetall',(req,res)=>{
 function msgGetAll(id,res){
 
 mongoClient.connect(function(err, client){
-    const db = client.db("nastasiy");
+    const db = client.db("printsotre");
     var answer="0";
     var allProductsArray = db.collection("items").find().toArray();
 
