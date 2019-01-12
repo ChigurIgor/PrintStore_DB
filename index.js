@@ -5,7 +5,7 @@ var qs = require('querystring');
 const PORT = process.env.PORT || 5000;
 
 const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb://madcat:masterminde+1@ds153380.mlab.com:53380/nastasiy";
+const url = "mongodb://madcat:masterminde+1@ds251804.mlab.com:51804/printsotre";
 const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 // создаем объект MongoClient и передаем ему строку подключения
 
@@ -120,7 +120,7 @@ app.post('/msggetall',(req,res)=>{
  function msgAdd(email, msgtxt, name, phone) {
 
      mongoClient.connect(async function (err, client) {
-        const db = client.db("nastasiy");
+        const db = client.db("printsotre");
 
         const collection = db.collection("items");
         let msg = {email: email, msgtxt: msgtxt, name: name, phone: phone};
