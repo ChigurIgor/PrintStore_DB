@@ -162,11 +162,11 @@ mongoClient.connect(async function (err, client) {
         console.log(documents);
 
         res.end(JSON.stringify(documents));
-        client.close();
+
 
     });
 } finally {
-        if (db) db.close();
+            if (db) db.close();
         console.log("db.close()");
 
         }
