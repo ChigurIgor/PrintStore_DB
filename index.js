@@ -156,7 +156,7 @@ app.post('/itemgetall',(req,res)=>{
         console.log(body);
         id=post.id;
 
-        msgGetAll(id,res);
+        itemGetAll(id,res);
     });
 
 });
@@ -259,11 +259,11 @@ function itemGetAll(id,res){
     mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
-        var allProductsArray = db.collection("msgs").find().toArray();
+        var allProductsArray = db.collection("items").find().toArray();
         try {
 
 
-            await db.collection("msgs").find().toArray(function (err, documents) {
+            await db.collection("items").find().toArray(function (err, documents) {
                 console.log(documents);
 
                 res.end(JSON.stringify(documents));
