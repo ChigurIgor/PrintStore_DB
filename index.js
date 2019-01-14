@@ -120,7 +120,7 @@ app.post('/itemadd',(req,res)=>{
     let descr="";
     let id="";
     let name="";
-    let quantity ="";
+    let link ="";
     let price="";
 
         let body = '';
@@ -134,10 +134,10 @@ app.post('/itemadd',(req,res)=>{
         descr=post.descr;
         id=post.id;
         name=post.name;
-        quantity=post.quantity;
+        link=post.link;
         price=post.price;
 
-        itemAdd(descr, id,name, quantity,price);
+        itemAdd(descr, id,name, link,price);
         res.end(JSON.stringify({ msg: "OK" }));
     });
 
@@ -223,13 +223,13 @@ mongoClient.connect(async function (err, client) {
 }
 
 
-function itemAdd(descr, id,name, quantity,price) {
+function itemAdd(descr, id,name, link,price) {
 
     mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
 
         const collection = db.collection("items");
-        let msg = {descr: descr, id: id, name: name, quantity: quantity, price: price};
+        let msg = {descr: descr, id: id, name: name, link: link, price: price};
         try {
             await collection.insertOne(msg, function (err, result) {
 
