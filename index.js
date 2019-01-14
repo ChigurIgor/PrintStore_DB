@@ -116,6 +116,55 @@ app.post('/msggetall',(req,res)=>{
 
 });
 
+app.post('/itemadd',(req,res)=>{
+    let descr="";
+    let id="";
+    let name="";
+    let quantity ="";
+    let price="";
+
+        let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        descr=post.descr;
+        id=post.id;
+        name=post.name;
+        quantity=post.quantity;
+        price=post.price;
+
+        itemAdd(descr, id,name, quantity,price);
+        res.end(JSON.stringify({ msg: "OK" }));
+    });
+
+});
+
+app.post('/itemgetall',(req,res)=>{
+    let id="";
+
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        id=post.id;
+
+        msgGetAll(id,res);
+    });
+
+});
+
+
+
+
+
 
  function msgAdd(email, msgtxt, name, phone) {
 
@@ -148,7 +197,6 @@ app.post('/msggetall',(req,res)=>{
 
 }
 
-
 function msgGetAll(id,res){
 
 mongoClient.connect(async function (err, client) {
@@ -175,3 +223,58 @@ mongoClient.connect(async function (err, client) {
 }
 
 
+function itemAdd(descr, id,name, quantity,price) {
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+
+        const collection = db.collection("items");
+        let msg = {descr: descr, id: id, name: name, quantity: quantity, price: price};
+        try {
+            await collection.insertOne(msg, function (err, result) {
+
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(result.ops);
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+    });
+
+
+
+
+
+
+
+}
+
+function itemGetAll(id,res){
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+        var answer = "0";
+        var allProductsArray = db.collection("msgs").find().toArray();
+        try {
+
+
+            await db.collection("msgs").find().toArray(function (err, documents) {
+                console.log(documents);
+
+                res.end(JSON.stringify(documents));
+
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+
+    });
+}
