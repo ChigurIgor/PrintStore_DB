@@ -122,7 +122,7 @@ app.post('/msggetall',(req,res)=>{
      mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
 
-        const collection = db.collection("items");
+        const collection = db.collection("msgs");
         let msg = {email: email, msgtxt: msgtxt, name: name, phone: phone};
          try {
         await collection.insertOne(msg, function (err, result) {
@@ -154,11 +154,11 @@ function msgGetAll(id,res){
 mongoClient.connect(async function (err, client) {
     const db = client.db("printsotre");
     var answer = "0";
-    var allProductsArray = db.collection("items").find().toArray();
+    var allProductsArray = db.collection("msgs").find().toArray();
         try {
 
 
-    await db.collection("items").find().toArray(function (err, documents) {
+    await db.collection("msgs").find().toArray(function (err, documents) {
         console.log(documents);
 
         res.end(JSON.stringify(documents));
