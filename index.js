@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser= require("body-parser");
 var qs = require('querystring');
 var mongo = require('mongodb');
-var cors = require('cors');
 
 const PORT = process.env.PORT || 5000;
 
@@ -206,6 +205,11 @@ app.post('/itemadd',(req,res)=>{
 });
 
 app.post('/itemgetall',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+
+
     let id="";
 
     let body = '';
