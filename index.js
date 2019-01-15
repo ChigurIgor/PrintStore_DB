@@ -228,6 +228,8 @@ app.post('/itemgetall',(req,res)=>{
 });
 
 app.post('/itemgetbyid',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let id="";
 
     let body = '';
