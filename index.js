@@ -494,7 +494,7 @@ function orederGetById(id,res){
         try {
 
 
-            await db.collection("orders").find({},{projection: { _id: 0 }}).toArray(function (err, documents) {
+            await db.collection("orders").find({_id: id}).toArray(function (err, documents) {
                 console.log(documents);
 
                 res.end(JSON.stringify(documents));
