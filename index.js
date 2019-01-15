@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser= require("body-parser");
 var qs = require('querystring');
 var mongo = require('mongodb');
+var cors = require('cors');
 
 const PORT = process.env.PORT || 5000;
 
@@ -16,6 +17,7 @@ const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 
 
 const app=express();
+app.use(cors());
 // let server = require('http').Server(app);
 
 // app.use(bodyParser.json());
