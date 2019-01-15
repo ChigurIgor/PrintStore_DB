@@ -334,9 +334,10 @@ function itemGetById(id,res){
         var answer = "0";
         // var allProductsArray = db.collection("items").find().toArray();
         try {
+            let o_id = new mongo.ObjectID(id);
 
 
-            await db.collection("items").find({ id : id }).toArray(function (err, documents) {
+            await db.collection("items").find({ "_id" : o_id }).toArray(function (err, documents) {
                 console.log(documents);
 
                 res.end(JSON.stringify(documents));
