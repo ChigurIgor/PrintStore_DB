@@ -163,6 +163,23 @@ app.post('/itemgetall',(req,res)=>{
 });
 
 
+app.post('/itemgetbyid',(req,res)=>{
+    let id="";
+
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        id=post.id;
+
+        itemGetById(id,res);
+    });
+
+});
 
 
 
@@ -265,6 +282,31 @@ function itemGetAll(id,res){
 
 
             await db.collection("items").find().toArray(function (err, documents) {
+                console.log(documents);
+
+                res.end(JSON.stringify(documents));
+
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+
+    });
+}
+
+function itemGetById(id,res){
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+        var answer = "0";
+        // var allProductsArray = db.collection("items").find().toArray();
+        try {
+
+
+            await db.collection("items").find({ id : id }).toArray(function (err, documents) {
                 console.log(documents);
 
                 res.end(JSON.stringify(documents));
