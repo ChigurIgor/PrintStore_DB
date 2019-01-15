@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser= require("body-parser");
 var qs = require('querystring');
+var mongo = require('mongodb');
 
 const PORT = process.env.PORT || 5000;
 
@@ -492,8 +493,7 @@ function orederGetById(id,res){
         var answer = "0";
         // var allProductsArray = db.collection("items").find().toArray();
         try {
-            var mongo = require('mongodb');
-            var o_id = new mongo.ObjectID(id);
+            let o_id = new mongo.ObjectID(id);
 
             await db.collection("orders").find({"_id": o_id}).toArray(function (err, documents) {
                 console.log(documents);
