@@ -16,8 +16,8 @@ const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 
 
 
-const app=express();
-app.use(cors());
+var app=express();
+// app.use(cors());
 // let server = require('http').Server(app);
 
 // app.use(bodyParser.json());
