@@ -78,6 +78,8 @@ app.use(bodyParser.json());
 // -------------------------------------------------------- msgs --------------------------------------------------------------------------
 
 app.post('/msgadd',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let email="";
     let name="";
     let phone ="";
@@ -101,6 +103,8 @@ app.post('/msgadd',(req,res)=>{
 });
 
 app.post('/msggetall',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let id="";
 
     let body = '';
@@ -177,6 +181,8 @@ function msgGetAll(id,res){
 // -------------------------------------------------------- items --------------------------------------------------------------------------
 
 app.post('/itemadd',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let descr="";
     let id="";
     let name="";
@@ -247,6 +253,8 @@ app.post('/itemgetbyid',(req,res)=>{
 
 });
 app.post('/itemgetbycat',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let cat="";
 
     let body = '';
@@ -372,6 +380,8 @@ function itemGetByCat(cat,res){
 // -------------------------------------------------------- orders --------------------------------------------------------------------------
 
 app.post('/orderadd',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let address="";
     let date="";
     let time="";
@@ -403,6 +413,8 @@ app.post('/orderadd',(req,res)=>{
 });
 
 app.post('/ordergetall',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let id="";
 
     let body = '';
@@ -421,6 +433,8 @@ app.post('/ordergetall',(req,res)=>{
 });
 
 app.post('/ordergetbyid',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     let id="";
 
     let body = '';
