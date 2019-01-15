@@ -73,7 +73,7 @@ app.listen(process.env.PORT || 5000, function(){
 
 // app.use(express.bodyParser());
 app.use(bodyParser.json());
-
+// -------------------------------------------------------- msgs --------------------------------------------------------------------------
 
 app.post('/msgadd',(req,res)=>{
     let email="";
@@ -115,6 +115,8 @@ app.post('/msggetall',(req,res)=>{
     });
 
 });
+
+// -------------------------------------------------------- items --------------------------------------------------------------------------
 
 app.post('/itemadd',(req,res)=>{
     let descr="";
@@ -162,7 +164,6 @@ app.post('/itemgetall',(req,res)=>{
 
 });
 
-
 app.post('/itemgetbyid',(req,res)=>{
     let id="";
 
@@ -177,6 +178,23 @@ app.post('/itemgetbyid',(req,res)=>{
         id=post.id;
 
         itemGetById(id,res);
+    });
+
+});
+app.post('/itemgetbycat',(req,res)=>{
+    let cat="";
+
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        cat=post.cat;
+
+        itemGetByCat(cat,res);
     });
 
 });
@@ -307,6 +325,31 @@ function itemGetById(id,res){
 
 
             await db.collection("items").find({ id : id }).toArray(function (err, documents) {
+                console.log(documents);
+
+                res.end(JSON.stringify(documents));
+
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+
+    });
+}
+
+function itemGetByCat(cat,res){
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+        var answer = "0";
+        // var allProductsArray = db.collection("items").find().toArray();
+        try {
+
+
+            await db.collection("items").find({ cat : cat }).toArray(function (err, documents) {
                 console.log(documents);
 
                 res.end(JSON.stringify(documents));
