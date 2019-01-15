@@ -116,6 +116,62 @@ app.post('/msggetall',(req,res)=>{
 
 });
 
+function msgAdd(email, msgtxt, name, phone) {
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+
+        const collection = db.collection("msgs");
+        let msg = {email: email, msgtxt: msgtxt, name: name, phone: phone};
+        try {
+            await collection.insertOne(msg, function (err, result) {
+
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(result.ops);
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+    });
+
+
+
+
+
+
+
+}
+
+function msgGetAll(id,res){
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+        var answer = "0";
+        var allProductsArray = db.collection("msgs").find().toArray();
+        try {
+
+
+            await db.collection("msgs").find().toArray(function (err, documents) {
+                console.log(documents);
+
+                res.end(JSON.stringify(documents));
+
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+
+    });
+}
+
 // -------------------------------------------------------- items --------------------------------------------------------------------------
 
 app.post('/itemadd',(req,res)=>{
@@ -199,66 +255,6 @@ app.post('/itemgetbycat',(req,res)=>{
 
 });
 
-
-
-
- function msgAdd(email, msgtxt, name, phone) {
-
-     mongoClient.connect(async function (err, client) {
-        const db = client.db("printsotre");
-
-        const collection = db.collection("msgs");
-        let msg = {email: email, msgtxt: msgtxt, name: name, phone: phone};
-         try {
-        await collection.insertOne(msg, function (err, result) {
-
-            if (err) {
-                return console.log(err);
-            }
-            console.log(result.ops);
-
-        });
-         } finally {
-             if (db) db.close();
-             console.log("db.close()");
-
-         }
-    });
-
-
-
-
-
-
-
-}
-
-function msgGetAll(id,res){
-
-mongoClient.connect(async function (err, client) {
-    const db = client.db("printsotre");
-    var answer = "0";
-    var allProductsArray = db.collection("msgs").find().toArray();
-        try {
-
-
-    await db.collection("msgs").find().toArray(function (err, documents) {
-        console.log(documents);
-
-        res.end(JSON.stringify(documents));
-
-
-    });
-} finally {
-            if (db) db.close();
-        console.log("db.close()");
-
-        }
-
-});
-}
-
-
 function itemAdd(cat,descr, id,name, link,price) {
 
     mongoClient.connect(async function (err, client) {
@@ -295,7 +291,6 @@ function itemGetAll(id,res){
     mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
-        var allProductsArray = db.collection("items").find().toArray();
         try {
 
 
@@ -364,3 +359,157 @@ function itemGetByCat(cat,res){
 
     });
 }
+
+// -------------------------------------------------------- orders --------------------------------------------------------------------------
+
+app.post('/orderadd',(req,res)=>{
+    let address="";
+    let date="";
+    let time="";
+    let email="";
+    let name="";
+    let phone ="";
+    let msgtxt="";
+    let cart="";
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        address=post.address;
+        date=post.date;
+        time=post.time;
+        email=post.email;
+        name=post.name;
+        phone=post.phone;
+        msgtxt=post.msgtxt;
+        cart=post.cart;
+        orderAdd(address,date,time,email, name,phone,msgtxt,cart );
+        res.end(JSON.stringify({ msg: "OK" }));
+    });
+
+});
+
+app.post('/ordergetall',(req,res)=>{
+    let id="";
+
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        id=post.id;
+
+        orederGetAll(id,res);
+    });
+
+});
+
+app.post('/ordergetbyid',(req,res)=>{
+    let id="";
+
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        id=post.id;
+
+        orederGetById(id,res);
+    });
+
+});
+
+
+function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+
+        const collection = db.collection("orders");
+        let msg = {address: address, date: date, time: time, email: email, name: name, phone: phone, msgtxt: msgtxt, cart: cart};
+        try {
+            await collection.insertOne(msg, function (err, result) {
+
+                if (err) {
+                    return console.log(err);
+                }
+                console.log(result.ops);
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+    });
+
+
+
+
+
+
+
+}
+
+function orederGetAll(id,res){
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+        var answer = "0";
+        try {
+
+
+            await db.collection("orders").find().toArray(function (err, documents) {
+                console.log(documents);
+
+                res.end(JSON.stringify(documents));
+
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+
+    });
+}
+
+function orederGetById(id,res){
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+        var answer = "0";
+        // var allProductsArray = db.collection("items").find().toArray();
+        try {
+
+
+            await db.collection("orders").find({ _id : id }).toArray(function (err, documents) {
+                console.log(documents);
+
+                res.end(JSON.stringify(documents));
+
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+
+    });
+}
+
+
+
+
