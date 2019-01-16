@@ -471,9 +471,9 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
 
             });
         } finally {
+            sendEmail();
             if (db) db.close();
             console.log("db.close()");
-            sendEmail();
 
         }
     });
