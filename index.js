@@ -382,14 +382,14 @@ function itemGetByIdForEmail(id){
 
 function itemGetByCat(cat,res){
 
-    mongoClient.open(async function (err, client) {
+    var mongoClientPromise = mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
         // var allProductsArray = db.collection("items").find().toArray();
         try {
 
 
-            await db.collection("items").find({ cat : cat }).toArray(function (err, documents) {
+            await db.collection("items").find({cat: cat}).toArray(function (err, documents) {
                 console.log(documents);
 
                 res.end(JSON.stringify(documents));
@@ -397,7 +397,7 @@ function itemGetByCat(cat,res){
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
