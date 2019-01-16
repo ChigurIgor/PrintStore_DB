@@ -10,7 +10,7 @@ const url = "mongodb://madcat:masterminde+1@ds251804.mlab.com:51804/printsotre";
 const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 // создаем объект MongoClient и передаем ему строку подключения
 
-
+var doc;
 
 
 
@@ -366,11 +366,12 @@ function itemGetByIdForEmail(id){
             await db.collection("items").find({ "_id" : o_id }).toArray(function (err, documents) {
                 console.log(documents);
 
-                 return (JSON.stringify(documents));
 
-
+                doc=documents;
             });
         } finally {
+            return (JSON.stringify(doc));
+
             if (db) db.close();
             console.log("db.close()");
 
