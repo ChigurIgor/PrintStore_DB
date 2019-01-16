@@ -548,7 +548,7 @@ console.log("SendEmail");
         }
     });
     var arr=JSON.parse(cart);
-    console.log(arr);
+    console.log("cart: "+arr);
 
 var myhtml=
     '<h1>Welcome</h1>' +
