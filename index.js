@@ -455,6 +455,14 @@ app.post('/ordergetbyid',(req,res)=>{
 
 
 function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
+      arrObj = {};
+     arrObj = JSON.parse(cart);
+    console.log(arrObj);
+    // console.log(JSON.parse(arrObj[0]).id);
+
+    console.log();
+
+
 
     mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
@@ -471,7 +479,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
 
             });
         } finally {
-            sendEmail(address,date,time,email, name,phone,msgtxt,cart);
+            // sendEmail(address,date,time,email, name,phone,msgtxt,cart);
             if (db) db.close();
             console.log("db.close()");
 
@@ -547,8 +555,8 @@ console.log("SendEmail");
             pass: 'mandarin+1'
         }
     });
-    var arr=JSON.parse(cart);
-    console.log("cart: "+arr);
+    // var arr=JSON.parse(cart);
+    // console.log("cart: "+arr);
 
 var myhtml=
     '<h1>Welcome</h1>' +
