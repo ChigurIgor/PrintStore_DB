@@ -274,7 +274,7 @@ app.post('/itemgetbycat',(req,res)=>{
 
 function itemAdd(cat,descr, id,name, link,price) {
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise = mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
 
         const collection = db.collection("items");
@@ -289,7 +289,7 @@ function itemAdd(cat,descr, id,name, link,price) {
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
@@ -305,7 +305,7 @@ function itemAdd(cat,descr, id,name, link,price) {
 
 function itemGetAll(id,res){
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise =mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
         try {
@@ -319,7 +319,7 @@ function itemGetAll(id,res){
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
@@ -329,7 +329,7 @@ function itemGetAll(id,res){
 
 function itemGetById(id,res){
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise =mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
         // var allProductsArray = db.collection("items").find().toArray();
@@ -345,7 +345,7 @@ function itemGetById(id,res){
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
@@ -355,7 +355,7 @@ function itemGetById(id,res){
 
 function itemGetByIdForEmail(id){
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise = mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
         // var allProductsArray = db.collection("items").find().toArray();
@@ -371,7 +371,7 @@ function itemGetByIdForEmail(id){
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
