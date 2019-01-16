@@ -455,20 +455,7 @@ app.post('/ordergetbyid',(req,res)=>{
 
 
 function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
-      arrObj = {};
-     arrObj = JSON.parse(cart);
-    console.log();
-    console.log();
-    console.log();
 
-    console.log(arrObj);
-    console.log("keys: "+arrObj.length);
-    console.log("0: "+JSON.parse(arrObj[0]).id);
-    console.log("1: "+JSON.parse(arrObj[1]).id);
-
-    console.log();
-    console.log();
-    console.log();
 
 
 
@@ -487,7 +474,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
 
             });
         } finally {
-            // sendEmail(address,date,time,email, name,phone,msgtxt,cart);
+            sendEmail(address,date,time,email, name,phone,msgtxt,cart);
             if (db) db.close();
             console.log("db.close()");
 
@@ -565,18 +552,49 @@ console.log("SendEmail");
     });
     // var arr=JSON.parse(cart);
     // console.log("cart: "+arr);
+    arrObj = {};
+    arrObj = JSON.parse(cart);
+    console.log();
+    console.log();
+    console.log();
 
-var myhtml=
-    '<h1>Welcome</h1>' +
-    '<p>'+address+'</p>'+
-    '<p>'+date+'</p>'+
-    '<p>'+time+'</p>'+
-    '<p>'+email+'</p>'+
-    '<p>'+name+'</p>'+
-    '<p>'+phone+'</p>'+
-    '<p>'+msgtxt+'</p>'+
-    '<p>'+cart+'</p>'
-;
+    console.log(arrObj);
+    // console.log("keys: "+arrObj.length);
+    // console.log("0: "+JSON.parse(arrObj[0]).id);
+    // console.log("1: "+JSON.parse(arrObj[1]).id);
+    i=0;
+    var myhtml=
+        '<h1>Welcome</h1>' +
+        '<p>'+address+'</p>'+
+        '<p>'+date+'</p>'+
+        '<p>'+time+'</p>'+
+        '<p>'+email+'</p>'+
+        '<p>'+name+'</p>'+
+        '<p>'+phone+'</p>'+
+        '<p>'+msgtxt+'</p>'
+    ;
+
+    for(i=0;i<arrObj.length;i+=1){
+        var itemId=JSON.parse(arrObj[i]).id;
+        var itemCount=JSON.parse(arrObj[i]).count;
+        var itemName=JSON.parse(arrObj[i]).nameItem;
+        var myhtml='<p>'+itemId+'</p>'+
+            '<p>'+itemCount+'</p>'+
+            '<p>'+itemHtml+'</p>';
+
+        myhtml=myhtml+'+'+myhtml;
+    }
+    console.log();
+    console.log();
+    console.log();
+
+
+
+
+
+
+
+
 
     var mailOptions = {
         from: '3dprint.str@gmail.com',
