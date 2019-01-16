@@ -578,11 +578,11 @@ console.log("SendEmail");
         var itemId=JSON.parse(arrObj[i]).id;
         var itemCount=JSON.parse(arrObj[i]).count;
         var itemName=JSON.parse(arrObj[i]).nameItem;
-        var myhtml='<p>'+itemId+'</p>'+
+        var itemHtml='<p>'+itemId+'</p>'+
             '<p>'+itemCount+'</p>'+
-            '<p>'+itemHtml+'</p>';
+            '<p>'+itemName+'</p>';
 
-        myhtml=myhtml+'+'+myhtml;
+        myhtml=myhtml+'+'+itemHtml;
     }
     console.log();
     console.log();
