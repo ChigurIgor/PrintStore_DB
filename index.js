@@ -471,7 +471,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
 
             });
         } finally {
-            sendEmail();
+            sendEmail(address,date,time,email, name,phone,msgtxt,cart);
             if (db) db.close();
             console.log("db.close()");
 
@@ -536,7 +536,7 @@ function orederGetById(id,res){
 }
 
 
-function sendEmail() {
+function sendEmail(address,date,time,email, name,phone,msgtxt,cart) {
 console.log("SendEmail");
     var nodemailer = require('nodemailer');
 
@@ -547,13 +547,24 @@ console.log("SendEmail");
             pass: 'mandarin+1'
         }
     });
+var myhtml=
+    '<h1>Welcome</h1>' +
+    '<p>'+address+'</p>'+
+    '<p>'+date+'</p>'+
+    '<p>'+time+'</p>'+
+    '<p>'+email+'</p>'+
+    '<p>'+name+'</p>'+
+    '<p>'+phone+'</p>'+
+    '<p>'+msgtxt+'</p>'+
+    '<p>'+cart+'</p>'
+;
 
     var mailOptions = {
         from: '3dprint.str@gmail.com',
         to: '3dprint.str@gmail.com',
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!',
-        // html: '<h1>Welcome</h1><p>That was easy!</p>'
+        subject: 'New order from store!',
+        text: 'New order from store!',
+        html: myhtml
 
     };
 
