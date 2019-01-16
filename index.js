@@ -10,7 +10,7 @@ const url = "mongodb://madcat:masterminde+1@ds251804.mlab.com:51804/printsotre";
 const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 // создаем объект MongoClient и передаем ему строку подключения
 
-var doc;
+
 
 
 
@@ -139,8 +139,8 @@ function msgAdd(email, msgtxt, name, phone) {
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
     });
@@ -170,8 +170,8 @@ function msgGetAll(id,res){
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
 
@@ -289,8 +289,8 @@ function itemAdd(cat,descr, id,name, link,price) {
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
     });
@@ -319,8 +319,8 @@ function itemGetAll(id,res){
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
 
@@ -345,8 +345,8 @@ function itemGetById(id,res){
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
 
@@ -366,14 +366,13 @@ function itemGetByIdForEmail(id){
             await db.collection("items").find({ "_id" : o_id }).toArray(function (err, documents) {
                 console.log(documents);
 
+                 return (JSON.stringify(documents));
 
-                doc=documents;
+
             });
         } finally {
-            return (JSON.stringify(doc));
-
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
 
@@ -398,8 +397,8 @@ function itemGetByCat(cat,res){
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
 
@@ -503,8 +502,8 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
             });
         } finally {
             sendEmail(address,date,time,email, name,phone,msgtxt,cart);
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
     });
@@ -533,8 +532,8 @@ function orederGetAll(id,res){
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
 
@@ -558,8 +557,8 @@ function orederGetById(id,res){
 
             });
         } finally {
-            if (db) db.close();
-            console.log("db.close()");
+            if (db) client.close();
+            console.log("client.close()");
 
         }
 
