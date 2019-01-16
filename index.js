@@ -353,6 +353,33 @@ function itemGetById(id,res){
     });
 }
 
+function itemGetByIdForEmail(id){
+
+    mongoClient.connect(async function (err, client) {
+        const db = client.db("printsotre");
+        var answer = "0";
+        // var allProductsArray = db.collection("items").find().toArray();
+        try {
+            let o_id = new mongo.ObjectID(id);
+
+
+            await db.collection("items").find({ "_id" : o_id }).toArray(function (err, documents) {
+                console.log(documents);
+
+                 return (JSON.stringify(documents));
+
+
+            });
+        } finally {
+            if (db) db.close();
+            console.log("db.close()");
+
+        }
+
+    });
+}
+
+
 function itemGetByCat(cat,res){
 
     mongoClient.connect(async function (err, client) {
@@ -579,11 +606,14 @@ console.log("SendEmail");
         var itemId=JSON.parse(arrObj[i]).id;
         var itemCount=JSON.parse(arrObj[i]).count;
         var itemName=JSON.parse(arrObj[i]).nameItem;
+
+        var item =itemGetByIdForEmail(itemId);
+        console.log(item);
         var itemHtml=
             '<li>'+
-            '<p>'+itemId+'</p>'+
-            '<p>'+itemCount+'</p>'+
-            '<p>'+itemName+'</p>'+
+            // '<p>'+itemId+'</p>'+
+            '<p>Item: '+itemName+'</p>'+
+            '<p>Amount,: '+itemCount+'</p>'+
         '</li>';
 
         myhtml=myhtml+itemHtml+'</ol>';
