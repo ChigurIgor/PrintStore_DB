@@ -571,18 +571,22 @@ console.log("SendEmail");
         '<p>'+email+'</p>'+
         '<p>'+name+'</p>'+
         '<p>'+phone+'</p>'+
-        '<p>'+msgtxt+'</p>'
+        '<p>'+msgtxt+'</p>'+
+        '<ol>'
     ;
 
     for(i=0;i<arrObj.length;i+=1){
         var itemId=JSON.parse(arrObj[i]).id;
         var itemCount=JSON.parse(arrObj[i]).count;
         var itemName=JSON.parse(arrObj[i]).nameItem;
-        var itemHtml='<p>'+itemId+'</p>'+
+        var itemHtml=
+            '<li>'+
+            '<p>'+itemId+'</p>'+
             '<p>'+itemCount+'</p>'+
-            '<p>'+itemName+'</p>';
+            '<p>'+itemName+'</p>'+
+        '</li>';
 
-        myhtml=myhtml+'+'+itemHtml;
+        myhtml=myhtml+itemHtml+'</ol>';
     }
     console.log();
     console.log();
