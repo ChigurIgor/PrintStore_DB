@@ -604,19 +604,19 @@ console.log("SendEmail");
     var fullPrice=0;
 
     for(i=0;i<arrObj.length;i+=1){
+        var itemPrice=0;
         var itemId=JSON.parse(arrObj[i]).id;
         var itemCount=JSON.parse(arrObj[i]).count;
         var itemName=JSON.parse(arrObj[i]).nameItem;
-
-        var item =itemGetByIdForEmail(itemId);
+        itemPrice=JSON.parse(arrObj[i]).price;;
+        // var item =itemGetByIdForEmail(itemId);
         console.log("Item: "+item);
         var itemPrice=0;
-        if(item!=null){
-            itemPrice=item.price;
+
             console.log("itemPrice: "+itemPrice);
 
             fullPrice=fullPrice+(parseInt(itemPrice)*parseInt(itemCount));
-        }
+
         var itemHtml=
             '<li>'+
             // '<p>'+itemId+'</p>'+
@@ -634,7 +634,7 @@ console.log("SendEmail");
 
 
 
-    myhtml=myhtml+'</ol>'+'<p>'+fullPrice+'</p>';
+    myhtml=myhtml+'</ol>'+'<p>Full order pice: '+fullPrice+'</p>';
 
 
 
