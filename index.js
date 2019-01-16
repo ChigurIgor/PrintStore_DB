@@ -124,7 +124,7 @@ app.post('/msggetall',(req,res)=>{
 
 function msgAdd(email, msgtxt, name, phone) {
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise =   mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
 
         const collection = db.collection("msgs");
@@ -139,7 +139,7 @@ function msgAdd(email, msgtxt, name, phone) {
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
@@ -155,7 +155,7 @@ function msgAdd(email, msgtxt, name, phone) {
 
 function msgGetAll(id,res){
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise = mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
         var allProductsArray = db.collection("msgs").find().toArray();
@@ -170,7 +170,7 @@ function msgGetAll(id,res){
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
@@ -486,7 +486,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
 
 
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise = mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
 
         const collection = db.collection("orders");
@@ -502,7 +502,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
             });
         } finally {
             sendEmail(address,date,time,email, name,phone,msgtxt,cart);
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
@@ -518,7 +518,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
 
 function orederGetAll(id,res){
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise =  mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
         try {
@@ -532,7 +532,7 @@ function orederGetAll(id,res){
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
@@ -542,7 +542,7 @@ function orederGetAll(id,res){
 
 function orederGetById(id,res){
 
-    mongoClient.connect(async function (err, client) {
+    var mongoClientPromise = mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
         var answer = "0";
         // var allProductsArray = db.collection("items").find().toArray();
@@ -557,7 +557,7 @@ function orederGetById(id,res){
 
             });
         } finally {
-            if (db) client.close();
+            if (db) mongoClientPromise.close();
             console.log("client.close()");
 
         }
