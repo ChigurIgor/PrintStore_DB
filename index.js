@@ -537,7 +537,7 @@ function orederGetById(id,res){
 
 
 function sendEmail() {
-
+console.log("SendEmail");
     var nodemailer = require('nodemailer');
 
     var transporter = nodemailer.createTransport({
@@ -553,13 +553,13 @@ function sendEmail() {
         to: '3dprint.str@gmail.com',
         subject: 'Sending Email using Node.js',
         text: 'That was easy!',
-        html: '<h1>Welcome</h1><p>That was easy!</p>'
+        // html: '<h1>Welcome</h1><p>That was easy!</p>'
 
     };
 
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-            console.log(error);
+            console.log('Email sent error: '+error);
         } else {
             console.log('Email sent: ' + info.response);
         }
