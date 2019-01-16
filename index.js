@@ -382,8 +382,8 @@ function itemGetByIdForEmail(id){
 
 function itemGetByCat(cat,res){
 
-    mongoClient.connect(async function (err, client) {
-         db = client.db("printsotre");
+    mongoClient.open(async function (err, client) {
+        const db = client.db("printsotre");
         var answer = "0";
         // var allProductsArray = db.collection("items").find().toArray();
         try {
