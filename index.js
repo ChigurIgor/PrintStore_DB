@@ -608,9 +608,9 @@ console.log("SendEmail");
         var itemId=JSON.parse(arrObj[i]).id;
         var itemCount=JSON.parse(arrObj[i]).count;
         var itemName=JSON.parse(arrObj[i]).nameItem;
-        itemPrice=JSON.parse(arrObj[i]).price;
+            itemPrice=JSON.parse(arrObj[i]).price;
         // var item =itemGetByIdForEmail(itemId);
-        var itemPrice=0;
+
 
             console.log("itemPrice: "+itemPrice);
 
@@ -620,7 +620,7 @@ console.log("SendEmail");
             '<li>'+
             // '<p>'+itemId+'</p>'+
             '<p>Item: '+itemName+'</p>'+
-            '<p>Amount,: '+itemCount+'</p>'+
+            '<p>Amount: '+itemCount+'</p>'+
             '<p>ItemPrice: '+itemPrice+'</p>'+
         '</li>';
 
