@@ -601,6 +601,7 @@ console.log("SendEmail");
         '<p>'+msgtxt+'</p>'+
         '<ol>'
     ;
+    var fullPrice=0;
 
     for(i=0;i<arrObj.length;i+=1){
         var itemId=JSON.parse(arrObj[i]).id;
@@ -608,23 +609,32 @@ console.log("SendEmail");
         var itemName=JSON.parse(arrObj[i]).nameItem;
 
         var item =itemGetByIdForEmail(itemId);
-        console.log(item);
+        console.log("Item: "+item);
+        var itemPrice=0;
+        if(item!=null){
+            itemPrice=item.price;
+            console.log("itemPrice: "+itemPrice);
+
+            fullPrice=fullPrice+(parseInt(itemPrice)*parseInt(itemCount));
+        }
         var itemHtml=
             '<li>'+
             // '<p>'+itemId+'</p>'+
             '<p>Item: '+itemName+'</p>'+
             '<p>Amount,: '+itemCount+'</p>'+
+            '<p>ItemPrice: '+itemPrice+'</p>'+
         '</li>';
 
-        myhtml=myhtml+itemHtml+'</ol>';
+        myhtml=myhtml+itemHtml;
     }
     console.log();
     console.log();
     console.log();
+    console.log("fullPrice: "+fullPrice);
 
 
 
-
+    myhtml=myhtml+'</ol>'+'<p>'+fullPrice+'</p>';
 
 
 
