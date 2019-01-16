@@ -547,6 +547,9 @@ console.log("SendEmail");
             pass: 'mandarin+1'
         }
     });
+    var arr=JSON.parse(cart);
+    console.log(arr);
+
 var myhtml=
     '<h1>Welcome</h1>' +
     '<p>'+address+'</p>'+
