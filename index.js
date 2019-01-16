@@ -457,10 +457,17 @@ app.post('/ordergetbyid',(req,res)=>{
 function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
       arrObj = {};
      arrObj = JSON.parse(cart);
-    console.log(arrObj);
-    console.log("0: "+arrObj[0].id);
-    console.log("1: "+JSON.parse(arrObj[0]).id);
+    console.log();
+    console.log();
+    console.log();
 
+    console.log(arrObj);
+    console.log("keys: "+arrObj.length);
+    console.log("0: "+JSON.parse(arrObj[0]).id);
+    console.log("1: "+JSON.parse(arrObj[1]).id);
+
+    console.log();
+    console.log();
     console.log();
 
 
