@@ -473,6 +473,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
         } finally {
             if (db) db.close();
             console.log("db.close()");
+            sendEmail();
 
         }
     });
@@ -542,14 +543,14 @@ function sendEmail() {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'youremail@gmail.com',
-            pass: 'yourpassword'
+            user: '3dprint.str@gmail.com',
+            pass: 'mandarin+1'
         }
     });
 
     var mailOptions = {
-        from: 'youremail@gmail.com',
-        to: 'myfriend@yahoo.com',
+        from: '3dprint.str@gmail.com',
+        to: '3dprint.str@gmail.com',
         subject: 'Sending Email using Node.js',
         text: 'That was easy!',
         html: '<h1>Welcome</h1><p>That was easy!</p>'
