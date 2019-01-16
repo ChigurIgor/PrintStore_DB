@@ -459,7 +459,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
      arrObj = JSON.parse(cart);
     console.log(arrObj);
     console.log("0: "+arrObj[0].id);
-    console.log("1: "+arrObj[1].id);
+    console.log("1: "+JSON.parse(arrObj[0]).id);
 
     console.log();
 
