@@ -276,13 +276,13 @@ app.post('/itemgetbycat',(req,res)=>{
 
 });
 
-function itemAdd(cat,descr, id,name, link,price) {
+function itemAdd(cat,colour,descr, id,link,material,name,price) {
 
     var mongoClientPromise = mongoClient.connect(async function (err, client) {
         const db = client.db("printsotre");
 
         const collection = db.collection("items");
-        let msg = {cat: cat, descr: descr, id: id, name: name, link: link, price: price};
+        let msg = {cat: cat,colour:colour, descr: descr, id: id,  link: link,material:material, name: name, price: price};
         try {
             await collection.insertOne(msg, function (err, result) {
 
