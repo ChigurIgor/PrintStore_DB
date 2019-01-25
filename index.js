@@ -189,6 +189,8 @@ app.post('/itemadd',(req,res)=>{
     let link ="";
     let price="";
     let cat="";
+    let material="";
+    let colour="";
 
         let body = '';
     req.on('data', chunk => {
@@ -204,7 +206,9 @@ app.post('/itemadd',(req,res)=>{
         link=post.link;
         price=post.price;
         cat=post.cat;
-        itemAdd(cat,descr, id,name, link,price);
+        material=post.material;
+        colour=post.colour;
+        itemAdd(cat,colour,descr, id,link,material,name,price);
         res.end(JSON.stringify({ msg: "OK" }));
     });
 
