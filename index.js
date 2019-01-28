@@ -423,6 +423,7 @@ app.post('/orderadd',(req,res)=>{
     let msgtxt="";
     let cart="";
     let body = '';
+    let delTime='';
     req.on('data', chunk => {
         body += chunk.toString(); // convert Buffer to string
     });
@@ -438,7 +439,8 @@ app.post('/orderadd',(req,res)=>{
         phone=post.phone;
         msgtxt=post.msgtxt;
         cart=post.cart;
-        orderAdd(address,date,time,email, name,phone,msgtxt,cart );
+        delTime=post.delTime;
+        orderAdd(address,date,time,email, name,phone,msgtxt,cart,delTime );
         res.end(JSON.stringify({ msg: "OK" }));
     });
 
@@ -485,7 +487,7 @@ app.post('/ordergetbyid',(req,res)=>{
 });
 
 
-function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
+function orderAdd(address,date,time,email, name,phone,msgtxt,cart,delTime) {
 
 
 
@@ -494,7 +496,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
         const db = client.db("printsotre");
 
         const collection = db.collection("orders");
-        let msg = {address: address, date: date, time: time, email: email, name: name, phone: phone, msgtxt: msgtxt, cart: cart};
+        let msg = {address: address, date: date, time: time, email: email, name: name, phone: phone, msgtxt: msgtxt, cart: cart,delTime: delTime};
         try {
             await collection.insertOne(msg, function (err, result) {
 
@@ -505,7 +507,7 @@ function orderAdd(address,date,time,email, name,phone,msgtxt,cart) {
 
             });
         } finally {
-            sendEmail(address,date,time,email, name,phone,msgtxt,cart);
+            sendEmail(address,date,time,email, name,phone,msgtxt,cart,delTime);
             if (db) mongoClientPromise.close();
             console.log("client.close()");
 
@@ -570,7 +572,7 @@ function orederGetById(id,res){
 }
 
 
-function sendEmail(address,date,time,email, name,phone,msgtxt,cart) {
+function sendEmail(address,date,time,email, name,phone,msgtxt,cart,delTime) {
 console.log("SendEmail");
     var nodemailer = require('nodemailer');
 
@@ -595,14 +597,15 @@ console.log("SendEmail");
     // console.log("1: "+JSON.parse(arrObj[1]).id);
     i=0;
     var myhtml=
-        '<h1>Welcome</h1>' +
-        '<p>'+address+'</p>'+
-        '<p>'+date+'</p>'+
-        '<p>'+time+'</p>'+
-        '<p>'+email+'</p>'+
-        '<p>'+name+'</p>'+
-        '<p>'+phone+'</p>'+
-        '<p>'+msgtxt+'</p>'+
+        '<h1>New order info</h1>' +
+        '<p>Address: '+address+'</p>'+
+        '<p>Delivery time and date: '+delTime+'</p>'+
+        '<p>Order date: '+date+'</p>'+
+        '<p>Order time: '+time+'</p>'+
+        '<p>Customer\'s email: '+email+'</p>'+
+        '<p>Customer\'s name:'+name+'</p>'+
+        '<p>Customer\'s phone: '+phone+'</p>'+
+        '<p>Msg text: '+msgtxt+'</p>'+
         '<ol>'
     ;
     var fullPrice=0;
