@@ -14,7 +14,7 @@ const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 var admin = require("firebase-admin");
 
 // var serviceAccount = require("teslafilament-firebase-adminsdk-dmnvd-0b79be2485");
-var serviceAccount = require("teslafilament-firebase-adminsdk-dmnvd-0b79be2485.json");
+var serviceAccount = require("./teslafilament-firebase-adminsdk-dmnvd-0b79be2485.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://teslafilament.firebaseio.com"
