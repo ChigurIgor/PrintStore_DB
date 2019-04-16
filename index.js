@@ -11,7 +11,14 @@ const mongoClient = new MongoClient(url, { useNewUrlParser: true });
 // создаем объект MongoClient и передаем ему строку подключения
 
 
+var admin = require("firebase-admin");
 
+var serviceAccount = require("teslafilament-firebase-adminsdk-dmnvd-0b79be2485");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://teslafilament.firebaseio.com"
+});
 
 
 
@@ -662,5 +669,46 @@ console.log("SendEmail");
             console.log('Email sent: ' + info.response);
         }
     });
+}
+
+app.post('/sendfcm',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    let title="";
+    let msg="";
+
+    let body = '';
+    req.on('data', chunk => {
+        body += chunk.toString(); // convert Buffer to string
+    });
+    req.on('end', () => {
+        var post = qs.parse(body);
+
+        console.log(body);
+        title=post.title;
+        msg=post.msg;
+
+        sendmsg(title,msg,res);
+    });
+
+});
+
+function sendmsg(title,msg,res){
+
+    var topic = 'news';
+    var message = {
+        notification: {
+            title: '$GOOG up 1.43% on the day',
+            body: '$GOOG gained 11.80 points to close at 835.67, up 1.43% on the day.'
+        },
+        topic: topic
+    };
+
+    admin.messaging().send(message).then(res=>{
+        console.log("Success",res)
+    }).catch(err=>{
+        console.log("Error:",err)
+    })
+
 }
 
