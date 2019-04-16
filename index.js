@@ -693,7 +693,7 @@ app.post('/sendfcm',(req,res)=>{
 
 });
 
-function sendmsg(title,msg,res){
+function sendmsg(title,msg,res1){
 
     var topic = 'news';
     var message = {
@@ -706,11 +706,11 @@ function sendmsg(title,msg,res){
 
     admin.messaging().send(message).then(res=>{
         console.log("Success",res)
-        res.end(JSON.stringify({ msg: "OK" }));
+        res1.end(JSON.stringify({ msg: "OK" }));
 
     }).catch(err=>{
         console.log("Error:",err)
-        res.end(JSON.stringify({ msg: "Error" }));
+        res1.end(JSON.stringify({ msg: "Error" }));
     })
 
 }
